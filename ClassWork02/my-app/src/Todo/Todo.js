@@ -10,10 +10,29 @@ export default class Todo extends React.Component {
             { id: 3, title: 'do samething 3', isDone: false }
         ],
     };
-    addNewTodo(newTodo) {
-        console.log('submited', newTodo);
+    addNewTodo = (newTodo) => {
+        newTodo.id = Date.now();
+        newTodo.isDone = false;
+
+        this.state.todos.push(newTodo);
+
+        this.setState({
+            todos: [...this.state.todos, newTodo],
+        })
     }
 
+deleteTodo = (id) =>{
+    this.setState({
+        todos: this.state.todos.filter((item) => item.id !== id),
+    })
+}
+
+toggleTodo = (id) => {
+    this.setState({
+        todos: this.state.todos.map((item) => 
+            item.id !==id ? item : {...item, isDone: item.isDone})
+    })
+}
     render() {
         return (
             <>
