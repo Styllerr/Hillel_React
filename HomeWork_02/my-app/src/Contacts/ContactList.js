@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import ContactItem from './ContactItem'
-import ContactForm from './ContactForm'
 
 export default class ContactList extends Component {
 
@@ -17,7 +16,7 @@ export default class ContactList extends Component {
                         <tr>
                             <th style={styleTableHeader}>First name</th>
                             <th style={styleTableHeader}>Second name</th>
-                            <th style={styleTableHeader}>Phone nomber</th>
+                            <th style={styleTableHeader}>Phone number</th>
                             <th style={styleTableHeader}>Action</th>
                         </tr>
                     </thead>

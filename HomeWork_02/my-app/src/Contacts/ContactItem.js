@@ -10,7 +10,7 @@ export default class ContactItem extends Component {
             <>
                 <td style={styleTableCell}>{this.props.contact.firstName}</td>
                 <td style={styleTableCell}>{this.props.contact.secondName}</td>
-                <td style={styleTableCell}>+{this.props.contact.phoneNomber}</td>
+                <td style={styleTableCell}>+{this.props.contact.phonenumber}</td>
                 <td style={{textAlign: "center"}}><div>X</div></td>
             </>
         )
