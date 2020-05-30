@@ -24,7 +24,6 @@ export default class Contacts extends Component {
         });
     }
     deleteContact = (id) => {
-        console.log('Сейчас удалю: ' + id)
         this.setState({
             contacts: this.state.contacts.filter((item) => item.id !== id)
         })
