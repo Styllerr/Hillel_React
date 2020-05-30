@@ -8,11 +8,20 @@ export default class ContactForm extends Component {
         firstName: '',
         secondName: '',
         phonenumber: '',
+        validInputName: false,
+        validInputSecondName: false,
+        validInputPhoneNomber: false,
     };
     onNameChange = (e) => {
         this.setState({
-            firstName: e.target.value,
+            firstName: e.target.value
         });
+        if(e.target.value) {
+            e.target.style.border="2px solid green"
+        }else {
+            e.target.style.border="2px solid red"
+
+        }
     };
     onSecondNameChange = (e) => {
         this.setState({
@@ -37,6 +46,11 @@ export default class ContactForm extends Component {
             secondName: this.state.secondName,
             phonenumber: this.state.phonenumber,
         });
+        this.setState({
+            firstName: '',
+            secondName: '',
+            phonenumber: ''
+        })
     }
     render() {
         const styles = {
@@ -68,6 +82,12 @@ export default class ContactForm extends Component {
             },
             showButton: {
                 display: this.state.showButton
+            },
+            validInput: {
+                border: "1px solid green"
+            },
+            invalidInput: {
+                border: "1px solid red"
             }
         }
         return (
@@ -81,7 +101,6 @@ export default class ContactForm extends Component {
                 </div>
                 <form
                     style={styles.showForm}
-                    onSubmit={this.onFormSubmit}
                 >
                     <div style={styles.inputWrapper}>
                         <div style={styles.inputConteiner}>
@@ -91,6 +110,7 @@ export default class ContactForm extends Component {
                                 name="firstName"
                                 id="firstName"
                                 value={this.state.firstName}
+                                // style={styles.invalidInput}
                                 onChange={this.onNameChange}
                                 autoComplete="off"
                             />
@@ -119,7 +139,11 @@ export default class ContactForm extends Component {
                         </div>
                     </div>
                     <div style={styles.buttonConteiner}>
-                        <button disabled={this.state.lockButtonAdd} >Add</button>
+                        <button
+                            disabled={this.state.lockButtonAdd}
+                            onClick={this.onFormSubmit}
+                        >Add
+                        </button>
                         <input
                             type="reset"
                             value="Cancel"
@@ -127,8 +151,8 @@ export default class ContactForm extends Component {
                             onClick={() => {
                                 this.setState({ showForm: "none" });
                                 this.setState({ showButton: "block" })
-                            }
-                            } />
+                            }}
+                        />
                     </div>
                 </form>
             </div>

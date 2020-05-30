@@ -10,8 +10,12 @@ export default class Contacts extends Component {
             {id: 3, firstName: 'Nika', secondName: 'Chukavov', phonenumber: '380997885738'}
         ]
     }
-    addNewContact(contact) {
-        console.log(contact)
+    addNewContact = (contact) => {
+        console.log(contact);
+        contact.id = Date.now();
+        this.setState({
+            contacts: [...this.state.contacts, contact],
+        });
     }
     render() {
 
