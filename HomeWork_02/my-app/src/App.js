@@ -5,9 +5,9 @@ export default class App extends Component {
   render() {
     return (
       <>
-    <h1>Здесь будет контакт лист</h1>
-    <Contacts />
-    </>
+        <h1>My contacts</h1>
+        <Contacts />
+      </>
     )
   }
 }

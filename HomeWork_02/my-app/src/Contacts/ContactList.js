@@ -10,8 +10,7 @@ export default class ContactList extends Component {
         }
         return (
             <>
-                <table style={{ borderCollapse: "collapse", border: "1px solid black"}}>
-                    <caption>Contact list:</caption>
+                <table style={{ borderCollapse: "collapse", border: "1px solid black" }}>
                     <thead>
                         <tr>
                             <th style={styleTableHeader}>First name</th>
@@ -22,7 +21,8 @@ export default class ContactList extends Component {
                     </thead>
                     <tbody>
                         {this.props.contacts.map((item) => {
-                            return <tr style={styleTableHeader} key={item.id}><ContactItem contact={item} /></tr>})}
+                            return <tr style={styleTableHeader} key={item.id}><ContactItem contact={item} del={this.props.del} /></tr>
+                        })}
                     </tbody>
                 </table>
             </>

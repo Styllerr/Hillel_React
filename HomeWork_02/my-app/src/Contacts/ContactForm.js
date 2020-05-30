@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 
 export default class ContactForm extends Component {
     state = {
-        showForm: "none",
-        showButton: "block",
-        // lockButtonAdd: "disabled",
+        lockButtonAdd: true,
         firstName: '',
         secondName: '',
         phonenumber: '',
@@ -16,28 +14,52 @@ export default class ContactForm extends Component {
         this.setState({
             firstName: e.target.value
         });
-        if(e.target.value) {
-            e.target.style.border="2px solid green"
-        }else {
-            e.target.style.border="2px solid red"
-
+        if (e.target.value) {
+            this.setState({ validInputName: true });
+            e.target.style.border = "1px solid black";
+        } else {
+            this.setState({ validInputName: false });
+            e.target.style.border = "2px solid red";
         }
+        this.unblockAdd();
     };
     onSecondNameChange = (e) => {
         this.setState({
             secondName: e.target.value,
         });
+        if (e.target.value) {
+            this.setState({ validInputSecondName: true });
+            e.target.style.border = "1px solid black";
+        } else {
+            this.setState({ validInputSecondName: false });
+            e.target.style.border = "2px solid red";
+        }
+        this.unblockAdd();
     };
     onPhoneNumberChange = (e) => {
         this.setState({
             phonenumber: e.target.value,
         });
+        if (e.target.value) {
+            this.setState({ validInputPhoneNomber: true });
+            e.target.style.border = "1px solid black";
+        } else {
+            this.setState({ validInputPhoneNomber: false });
+            e.target.style.border = "2px solid red";
+        }
+        this.unblockAdd();
     };
 
-    lostFocus = (e) => {
+    onInputFocus = (e) => {
+        this.unblockAdd();
+    }
+    onInputBlur = (e) => {
         if (e.target.value) {
-
+            e.target.style.border = "1px solid black";
+        } else {
+            e.target.style.border = "2px solid red"
         }
+        this.unblockAdd();
     }
     onFormSubmit = (e) => {
         e.preventDefault();
@@ -46,16 +68,28 @@ export default class ContactForm extends Component {
             secondName: this.state.secondName,
             phonenumber: this.state.phonenumber,
         });
+        this.cancelForm()
+    }
+    unblockAdd() {
+        if (this.state.validInputName && this.state.validInputSecondName && this.state.validInputPhoneNomber) {
+            this.setState({ lockButtonAdd: false })
+        } else { this.setState({ lockButtonAdd: true }) }
+    }
+    cleanForm() {
         this.setState({
             firstName: '',
             secondName: '',
             phonenumber: ''
         })
     }
+    cancelForm = () => {
+        this.cleanForm();
+        this.props.hideForm();
+    }
     render() {
         const styles = {
             wrapper: {
-                maxWidth: "900px",
+                maxWidth: "600px",
             },
             inputConteiner: {
                 width: "29%",
@@ -67,50 +101,27 @@ export default class ContactForm extends Component {
                 display: "flex",
                 justifyContent: "space-between",
                 marginTop: "20px",
-
-            },
-            buttonAdd: {
-                marginTop: "20px",
             },
             buttonConteiner: {
                 display: "flex",
                 justifyContent: "center",
                 marginTop: "20px",
-            },
-            showForm: {
-                display: this.state.showForm,
-            },
-            showButton: {
-                display: this.state.showButton
-            },
-            validInput: {
-                border: "1px solid green"
-            },
-            invalidInput: {
-                border: "1px solid red"
             }
         }
         return (
             <div style={styles.wrapper}>
-                <div style={styles.buttonConteiner}>
-                    <button style={styles.showButton} onClick={() => {
-                        this.setState({ showForm: "block" });
-                        this.setState({ showButton: "none" })
-                    }
-                    }>Add new contact</button>
-                </div>
-                <form
-                    style={styles.showForm}
-                >
+                <form>
                     <div style={styles.inputWrapper}>
                         <div style={styles.inputConteiner}>
                             <label htmlFor="firstName" style={styles.label}>Name</label>
                             <input
+                                autoFocus
                                 type="text"
                                 name="firstName"
                                 id="firstName"
                                 value={this.state.firstName}
-                                // style={styles.invalidInput}
+                                onFocus={this.onInputFocus}
+                                onBlur={this.onInputBlur}
                                 onChange={this.onNameChange}
                                 autoComplete="off"
                             />
@@ -122,6 +133,8 @@ export default class ContactForm extends Component {
                                 name="secondName"
                                 id="secondName"
                                 value={this.state.secondName}
+                                onFocus={this.onInputFocus}
+                                onBlur={this.onInputBlur}
                                 onChange={this.onSecondNameChange}
                                 autoComplete="off"
                             />
@@ -133,6 +146,8 @@ export default class ContactForm extends Component {
                                 name="phonenumber"
                                 id="phonenumber"
                                 value={this.state.phonenumber}
+                                onFocus={this.onInputFocus}
+                                onBlur={this.onInputBlur}
                                 onChange={this.onPhoneNumberChange}
                                 autoComplete="off"
                             />
@@ -148,10 +163,7 @@ export default class ContactForm extends Component {
                             type="reset"
                             value="Cancel"
                             style={{ marginLeft: "30px" }}
-                            onClick={() => {
-                                this.setState({ showForm: "none" });
-                                this.setState({ showButton: "block" })
-                            }}
+                            onClick={this.cancelForm}
                         />
                     </div>
                 </form>
