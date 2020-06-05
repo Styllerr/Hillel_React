@@ -1,0 +1,7 @@
+.table_contacts {
+    max-width: 70%;
+    border-collapse: collapse;
+}
+.table_header>th {
+    border: 2px solid black;
+}
