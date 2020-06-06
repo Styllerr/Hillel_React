@@ -19,7 +19,7 @@ export default class ContactsList extends Component {
                 </thead>
                 <tbody>
                 {this.props.contacts.map((item) => {
-                    return <ContactsItem  key={item.id} contact={item} />
+                    return <ContactsItem  key={item.id} contact={item} selected={this.props.selected}/>
                 })}
                 </tbody>
             </table>

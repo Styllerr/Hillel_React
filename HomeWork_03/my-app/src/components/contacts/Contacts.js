@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import './Contacts.css'
 import ContactsList from '../contactsList/ContactsList'
+import ContactsForm from '../contactsForm/ContactsForm'
 
 export default class Contact extends Component {
     state = {
@@ -236,11 +238,15 @@ export default class Contact extends Component {
             }
         ]
     }
+    selected = (id) => {
+        console.log(id)
+    }
     render() {
 
         return (
             <div className="wrapper">
-                <ContactsList contacts={this.state.contacts} />
+                <ContactsList contacts={this.state.contacts} selected={this.selected}/>
+                <ContactsForm />
             </div>
         )
     }
