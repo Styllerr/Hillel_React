@@ -1,7 +1,15 @@
 .table_contacts {
+    display: table-row;
     max-width: 70%;
     border-collapse: collapse;
 }
+.table_contacts>caption {
+    margin: 10px;
+    font-size: 22px;
+}
 .table_header>th {
     border: 2px solid black;
+}
+.btnConteiner {
+    margin-top: 20px;
 }

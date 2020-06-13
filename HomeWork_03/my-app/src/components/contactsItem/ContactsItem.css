@@ -1,5 +1,6 @@
 .cell {
     border: 1px dotted black;
+    padding:  5px 10px;
 }
 tr:hover {
     border: 1px solid black;

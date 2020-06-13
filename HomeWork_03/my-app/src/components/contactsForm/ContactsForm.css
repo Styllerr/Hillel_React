@@ -1,0 +1,20 @@
+.contact_form {
+    border: 1px solid rgb(175, 164, 164);
+    padding: 10px 25px;
+    width: 45%; 
+}
+.input_wrapper>label {
+    display: inline-block;
+    width: 30%;
+}
+.input_wrapper>label>input {
+    margin: 20px 10px;
+}
+.button_block {
+    display: flex;
+    padding: 20px 50px;
+    justify-content: space-around;
+}
+.error {
+    border: 2px solid red;
+}
