@@ -1,0 +1,26 @@
+.sticker_container {
+    height: 170px;
+    width: 180px;
+    padding: 5px;
+    border: 1px solid #000;
+    background-color: rgb(202, 199, 5);
+    position: absolute;
+}
+.conteiner_header {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    padding: 5px 10px;
+}
+.move {
+    display: inline-block;
+    height: 10px;
+    width: 10px;
+    border: 1px solid #000;
+    border-radius: 50%;
+    cursor: move;
+}
+.close {
+    display: inline-block;
+    cursor: pointer;
+}

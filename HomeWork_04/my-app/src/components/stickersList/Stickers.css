@@ -1,0 +1,31 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.wrapper {
+    background-color: black;
+}
+.header {
+    max-width: 1600px;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.caption {
+    width: 80%;
+    color: white;
+    text-align: center;
+}
+.addButton {
+    justify-items: flex-end;
+    background-color: #000;
+    color: white;
+    padding: 5px 5px;
+}
+.stickersList {
+    max-width: 1600px;
+    height: 100vh; 
+    background-color: rgb(129, 8, 8);
+    position: relative;
+}

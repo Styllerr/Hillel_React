@@ -2,14 +2,16 @@ import React, { Component } from "react"
 import "./Contacts.css"
 import ContactsList from "../contactsList/ContactsList"
 import ContactsForm from "../contactsForm/ContactsForm"
+import contactService from "../../contactService"
+
 
 export default class Contact extends Component {
     state = {
         contacts: [],
-        url: "https://5ed92e944378690016c6adc3.mockapi.io/api/contacts/",
         createNew: true,
         tempContact: {}
     }
+    url = "https://5ed92e944378690016c6adc3.mockapi.io/api/contacts/"
 
     onSelect = (data) => {
         this.setState({
@@ -17,77 +19,51 @@ export default class Contact extends Component {
             tempContact: data
         });
     }
-    getContacts() {
-        try {
-            fetch(this.state.url)
-                .then(response => response.json())
-                .then(data => this.setState({ contacts: data }))
 
-        } catch (err) {
-            console.error("Fetch Error", err);
-        }
+    getContacts() {
+        contactService.getContacts()
+            .then(({data}) => this.setState({ contacts: data }))
     }
     postContacts = (contact) => {
         contact.id = Date.now();
-        try {
-            fetch(this.state.url, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(contact)
+        contactService.addContact(contact)
+            .then(response => {
+                if (response.status === 201) {
+                    this.setState({ tempContact: {} });
+                    this.getContacts();
+                } else {
+                    console.error("Response is not OK")
+                }
             })
-                .then(response => {
-                    if (response.ok) {
-                        this.setState({ tempContact: {} });
-                        this.getContacts();
-                    } else {
-                        console.error("Response is not OK")
-                    }
-                })
-        } catch (err) {
-            console.error("Fetch Error", err);
-        }
     }
     putContact = (contact) => {
-        try {
-            fetch(this.state.url + contact.id, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(contact)
+        contactService.updateContact(contact)
+        .then(response => {
+            console.log(response)
+                if (response.status === 200) {
+                    this.setState({
+                        tempContact: {},
+                        createNew: true,
+                    });
+                    this.getContacts();
+                } else {
+                    console.error("Response is not OK")
+                }
             })
-                .then(response => {
-                    if (response.ok) {
-                        this.setState({
-                            tempContact: {},
-                            createNew: true,
-                        });
-                        this.getContacts();
-                    } else {
-                        console.error("Response is not OK")
-                    }
-                })
-        } catch (err) {
-            console.error("Fetch Error", err);
-        }
     }
     deleteContact = (id) => {
-        try {
-            fetch(this.state.url + id, {
-                method: "DELETE",
+        contactService.delContact(id)
+            .then(response => {
+                if (response.status === 200) {
+                    this.setState({
+                        tempContact: {},
+                        createNew: true,
+                    });
+                    this.getContacts();
+                } else {
+                    console.error("Response is not OK")
+                }
             })
-                .then(response => {
-                    if (response.ok) {
-                        this.setState({
-                            tempContact: {},
-                            createNew: true,
-                        });
-                        this.getContacts();
-                    } else {
-                        console.error("Response is not OK")
-                    }
-                })
-        } catch (err) {
-            console.error("Fetch Error", err);
-        }
     }
     componentDidMount() {
         this.getContacts();
