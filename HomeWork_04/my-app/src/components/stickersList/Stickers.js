@@ -1,24 +1,32 @@
 import React, { useState, useEffect } from 'react'
-import StickersItem from '../stickersItem/StickersItem'
 import './Stickers.css'
+import StickersItem from '../stickersItem/StickersItem'
 import api from '../../api'
 
 
 function Stickers() {
     const [stickers, setStickers] = useState([]);
     const [mouseX, setMouseX] = useState(10);
-    const [mouseY, setMouseY] = useState(10);
-
+    const [mouseY, setMouseY] = useState(10);    
+    const [selectedSticker, setSelectedSticker] = useState({})
+    
     const mouse = {
         x: mouseX,
         y: mouseY,
-        isDown: false
     }
 
     useEffect(() => {
         api.get().then(({ data }) => setStickers(data));
-        console.log(mouse);
     }, []);
+
+    useEffect(() => {
+        if (selectedSticker.id) {
+            let temp = selectedSticker;
+            temp.positionX = mouseX;
+            temp.positionY = mouseY;
+            setSelectedSticker(temp);
+        }
+    }, [mouse])
 
     function createNew() {
         let blank = {
@@ -44,20 +52,16 @@ function Stickers() {
         api.put(sticker.id, sticker)
             .then(setStickers(stickers.map(item => item.id === sticker.id ? sticker : item)))
     }
-    function onMouseDown(e) {
-        mouse.isDown = true;
-        console.log(mouse);
+    function onMouseDown(sticker) {
+        setSelectedSticker(sticker)
     }
-    function onMouseUp() {
-        mouse.isDown = false;
-        console.log(mouse);
+    function onMouseUp(sticker) {
+        setSelectedSticker({});
+        onChange(sticker);
     }
     function chengeMousePositon(e) {
-        console.log(mouse);
-        if (mouse.isDown) {
-            setMouseX(e.clientX-22);
-            setMouseY(e.clientY-57);
-        }
+        setMouseX(e.clientX - 22);
+        setMouseY(e.clientY - 57);
     }
     return (
         <div className='wrapper'>
@@ -81,7 +85,6 @@ function Stickers() {
                         onDelete={onDelete}
                         onMouseDown={onMouseDown}
                         onMouseUp={onMouseUp}
-                        isMousePosition={mouse}
                     />
                 })}
             </main>

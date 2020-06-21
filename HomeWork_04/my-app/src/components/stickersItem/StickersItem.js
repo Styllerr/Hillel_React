@@ -1,24 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import './StickersItem.css'
 
-function StickersItem({ sticker, noteText, onDelete, onChange, onMouseDown, onMouseUp, isMousePosition }) {
+function StickersItem({ sticker, onDelete, onChange, onMouseDown, onMouseUp }) {
 
     const [text, setText] = useState('');
-    const [positionX, setPositionX] = useState(10);
-    const [positionY, setPositionY] = useState(10);
+
     const position = {
-        'top': positionY,
-        'left': positionX,
+        'top': sticker.positionY,
+        'left': sticker.positionX,
     }
 
     useEffect(() => {
         setText(sticker.noteText)
     }, [sticker]);
-
-    useEffect(() => {
-        setPositionX(isMousePosition.x);
-        setPositionY(isMousePosition.y)
-    }, [isMousePosition]);
 
     function onChangeText(e) {
         setText(e.target.value)
@@ -30,13 +24,16 @@ function StickersItem({ sticker, noteText, onDelete, onChange, onMouseDown, onMo
     };
 
     return (
-        <div className='sticker_container' style={position}>
+        <div
+            className='sticker_container'
+            style={position}
+        >
             <div className='conteiner_header'
-                onMouseDown={onMouseDown}
-                onMouseUp={onMouseUp}
             >
                 <div
                     className='move'
+                    onMouseDown={onMouseDown.bind(null, sticker)}
+                    onMouseUp={onMouseUp.bind(null, sticker)}
                 />
                 <div
                     className='close'
