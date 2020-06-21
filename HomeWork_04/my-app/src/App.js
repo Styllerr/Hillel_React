@@ -3,9 +3,7 @@ import Stickers from './components/stickersList/Stickers';
 
 function App() {
   return (
-    <div className="App">
       <Stickers/>
-    </div>
   );
 }
 
