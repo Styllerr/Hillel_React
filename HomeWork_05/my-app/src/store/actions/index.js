@@ -1,22 +1,23 @@
-const ADD_TODO = 'add new todo';
-const TOGGLE_TODO = 'mark todo';
+export const ADD_TODO = 'ADD/TODO';
+export const TOGGLE_TODO = 'TOGGLE/TODO';
+export const CHANGE_INPUT = 'CHANGE/INPUT'
 
-function add({ id, title }) {
+function add(todo) {
     return {
         type: ADD_TODO,
-        payload: {
-            id,
-            title,
-            isDone: false,
-        }
+        payload: todo,
+
     }
 }
-
-function toggle({ isDone }) {
+function changeInput(title) {
+    return {
+        type: CHANGE_INPUT,
+        payload: title,
+    }
+}
+function toggle(isDone) {
     return {
         type: TOGGLE_TODO,
-        payload: {
-            isDone: false,
-        }
+        payload: isDone,
     }
 }

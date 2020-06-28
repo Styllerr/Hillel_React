@@ -29,7 +29,7 @@ function Todo() {
             isDone: false,
         })
         .then( ({data}) => setTodoItems([...todoItems, data]))
-        setTitle('')
+        setTitle('');
     }
     return (
         <>
