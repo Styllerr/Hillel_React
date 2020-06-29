@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import TodoItem from '../TodoItem/TodoItem';
 import api from '../../api';
 import TodoForm from '../TodoForm/TodoForm';
+import {connect} from 'react-redux';
+import {add, changeInput, toggle} from '../../store/actions';
 
 function Todo() {
 
@@ -19,17 +21,20 @@ function Todo() {
                 ({ data }) => setTodoItems(todoItems.map(
                     item => item.id === data.id ? data : item)))
     }
-    function onTitleChenge(e) {
-        setTitle(e.target.value);
+    function onTitleChange(e) {
+        // setTitle(e.target.value);
+        changeInput(e.target.value);
     }
 
     function onSave() {
-        api.post('', {
-            title,
-            isDone: false,
-        })
-        .then( ({data}) => setTodoItems([...todoItems, data]))
-        setTitle('');
+        // api.post('', {
+        //     title,
+        //     isDone: false,
+        // })
+        // .then( ({data}) => setTodoItems([...todoItems, data]))
+        // setTitle('');
+
+
     }
     return (
         <>
@@ -42,11 +47,18 @@ function Todo() {
             </ul>
             <TodoForm
                 title={title}
-                onTitleChenge={onTitleChenge}
+                onTitleChange={onTitleChange}
                 onSave={onSave}
             />
         </>
     )
 }
 
-export default Todo
+const mapStateToProps = ({todos}) => ({todos})
+const mapDispatchToProps = {
+    add,
+    changeInput,
+    toggle
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Todo)

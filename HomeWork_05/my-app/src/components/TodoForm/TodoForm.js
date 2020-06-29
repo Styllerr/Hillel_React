@@ -1,6 +1,8 @@
-import React from 'react'
+import React from 'react';
+import {connect} from 'react-redux';
+import { changeInput } from '../../store/actions'
 
-function TodoForm({title, onTitleChenge, onSave}) {
+function TodoForm({onTitleChange, onSave}, props) {
 
     function onSubmit(e) {
         e.preventDefault();
@@ -9,10 +11,15 @@ function TodoForm({title, onTitleChenge, onSave}) {
     return (
         <form action='' onSubmit={onSubmit}>
             <input type='text' 
-            value={title}
-            onChange={onTitleChenge} />
+            value={props.title}
+            onChange={onTitleChange} />
         </form>
     )
 }
 
-export default TodoForm
+const mapStateToProps = ({title}) => ({title})
+const mapDispatchToProps = {
+    changeInput,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoForm)
