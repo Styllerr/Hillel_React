@@ -7,7 +7,7 @@ function TodoForm({ onTitleChange, onSave, title }) {
         onSave();
     }
     return (
-        <form action='' onSubmit={onSubmit}>
+        <form action='#' onSubmit={onSubmit}>
             <input type='text'
                 value={title}
                 onChange={onTitleChange} />

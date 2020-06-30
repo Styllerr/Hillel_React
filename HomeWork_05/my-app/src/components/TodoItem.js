@@ -15,5 +15,6 @@ export default TodoItem
 function getStyles(item) {
     return {
         backgroundColor: item.isDone ? 'green' : 'red',
+        cursor: 'pointer',
     }
 }

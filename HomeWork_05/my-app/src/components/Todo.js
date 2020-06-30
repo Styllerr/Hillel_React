@@ -1,15 +1,10 @@
 import React from 'react';
-import TodoItem from '../TodoItem/TodoItem';
-import TodoForm from '../TodoForm/TodoForm';
+import TodoItem from './TodoItem';
+import TodoForm from './TodoForm';
 import { connect } from 'react-redux';
-import { add, changeInput, toggle } from '../../store/actions';
+import { add, changeInput, toggle } from '../store/actions';
 
 function Todo({ todos, title, add, changeInput, toggle }) {
-
-
-    function toggleItem(item) {
-        toggle({ ...item, isDone: !item.isDone })
-    }
 
     function onTitleChange(e) {
         changeInput(e.target.value);
@@ -23,6 +18,11 @@ function Todo({ todos, title, add, changeInput, toggle }) {
         });
         changeInput('');
     }
+
+    function toggleItem(item) {
+        toggle({ ...item, isDone: !item.isDone })
+    }
+    
     return (
         <>
             <ul>
@@ -30,7 +30,8 @@ function Todo({ todos, title, add, changeInput, toggle }) {
                     <TodoItem
                         key={item.id}
                         item={item}
-                        onToggle={toggleItem} />))}
+                        onToggle={toggleItem}
+                    />))}
             </ul>
             <TodoForm
                 title={title}
@@ -41,7 +42,7 @@ function Todo({ todos, title, add, changeInput, toggle }) {
     )
 }
 
-const mapStateToProps = ({todos, title}) => ({todos, title})
+const mapStateToProps = ({ todos, title }) => ({ todos, title })
 const mapDispatchToProps = {
     add,
     changeInput,
