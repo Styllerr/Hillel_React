@@ -1,45 +1,32 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react';
 import TodoItem from '../TodoItem/TodoItem';
-import api from '../../api';
 import TodoForm from '../TodoForm/TodoForm';
-import {connect} from 'react-redux';
-import {add, changeInput, toggle} from '../../store/actions';
+import { connect } from 'react-redux';
+import { add, changeInput, toggle } from '../../store/actions';
 
-function Todo() {
+function Todo({ todos, title, add, changeInput, toggle }) {
 
-
-    const [todoItems, setTodoItems] = useState([]);
-    const [title, setTitle] = useState('')
-
-    useEffect(() => {
-        api.get().then(({ data }) => setTodoItems(data));
-    }, []);
 
     function toggleItem(item) {
-        api.put(item.id, { ...item, isDone: !item.isDone })
-            .then(
-                ({ data }) => setTodoItems(todoItems.map(
-                    item => item.id === data.id ? data : item)))
+        toggle({ ...item, isDone: !item.isDone })
     }
+
     function onTitleChange(e) {
-        // setTitle(e.target.value);
         changeInput(e.target.value);
     }
 
     function onSave() {
-        // api.post('', {
-        //     title,
-        //     isDone: false,
-        // })
-        // .then( ({data}) => setTodoItems([...todoItems, data]))
-        // setTitle('');
-
-
+        add({
+            id: Date.now(),
+            title,
+            isDone: false,
+        });
+        changeInput('');
     }
     return (
         <>
             <ul>
-                {todoItems.map(item => (
+                {todos.map(item => (
                     <TodoItem
                         key={item.id}
                         item={item}
@@ -54,11 +41,11 @@ function Todo() {
     )
 }
 
-const mapStateToProps = ({todos}) => ({todos})
+const mapStateToProps = ({todos, title}) => ({todos, title})
 const mapDispatchToProps = {
     add,
     changeInput,
     toggle
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Todo)

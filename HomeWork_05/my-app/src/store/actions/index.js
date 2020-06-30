@@ -6,7 +6,6 @@ export function add(todo) {
     return {
         type: ADD_TODO,
         payload: todo,
-
     }
 }
 export function changeInput(title) {
@@ -15,8 +14,9 @@ export function changeInput(title) {
         payload: title,
     }
 }
-export function toggle() {
+export function toggle(todo) {
     return {
         type: TOGGLE_TODO,
+        payload: todo
     }
 }
