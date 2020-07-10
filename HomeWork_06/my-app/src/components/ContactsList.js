@@ -2,11 +2,10 @@ import React from 'react';
 import ContactsItem from './ContactsItem';
 import ContactsForm from './ContactsForm'
 import { connect } from 'react-redux';
-import {add, edit, del} from '../store/actions/contacts';
-import {onFormShow} from '../store/actions/validators'
+import { add, edit, del, onFormShow } from '../store/actions/contacts';
 
 
-function ContactList({contacts, add, onTooggleForm, isFormShow}) {
+function ContactList({ contacts, add, onFormShow, isFormShow, cencelButtonName, onInputChange }) {
     return (
         <div className='table_wrapper'>
             <table className="table_contacts">
@@ -25,25 +24,29 @@ function ContactList({contacts, add, onTooggleForm, isFormShow}) {
                 </tbody>
             </table>
             <div className='btnConteiner'>
-                <button onClick={() => onTooggleForm()}>Create new contact</button>
+                {!isFormShow ? (<button
+                    onClick={() => onFormShow()}>Create new contact
+                </button>) : null}
             </div>
-            {isFormShow ? <ContactsForm/> : null }
-            {/* <ContactsForm/> */}
+            {isFormShow ? <ContactsForm 
+            cencelButtonName={cencelButtonName}
+            /> : null}
         </div>
     )
 }
 
-function mapStateToProps(state)  {
+function mapStateToProps(state) {
     return {
         contacts: state.contacts.items,
-        isFormShow: state.validators.isFormShow,
+        isFormShow: state.contacts.isFormShow,
+        cencelButtonName: state.contacts.cencelButtonName,
     }
 }
 const mapDispatchToProps = {
     add,
     edit,
     del,
-    onTooggleForm: onFormShow,
+    onFormShow,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactList)

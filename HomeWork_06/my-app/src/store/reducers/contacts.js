@@ -1,4 +1,10 @@
-const { ADD_CONTACT } = require("../actions/contacts");
+const { ADD_CONTACT, ACTION_FORM_SHOW, ACTION_INPUT_CHANGE, ACTION_FORM_CANCEL } = require("../actions/contacts");
+
+const BLANK_CONTACT = {
+    name: '',
+    surname: '',
+    phone: null,
+}
 
 const initialState = {
     items: [
@@ -15,13 +21,29 @@ const initialState = {
             phone: 380995677722,
         },
     ],
-    name: '',
-    surname: '',
-    phone: null
+    ...BLANK_CONTACT
+    ,
+    isFormShow: false,
+    isInputValid: false,
+    isFormValid: false,
+    cencelButtonName: 'Cancel',
 }
 
 export default function (state = initialState, { type, payload }) {
     switch (type) {
+        case ACTION_FORM_SHOW:
+            console.log('Form showed');
+            return { ...state, isFormShow: true };
+
+        case ACTION_FORM_CANCEL:
+            console.log('Form cenceled');
+            return { ...state, ...BLANK_CONTACT, isFormShow: false,}
+
+        case ACTION_INPUT_CHANGE:
+            console.log(state, payload);
+
+            return { ...state, [payload.name]: payload.value };
+
         case ADD_CONTACT:
             console.log('Add contact: ', payload)
             return { ...state, items: [...state.contacts.items, payload] }
@@ -29,3 +51,4 @@ export default function (state = initialState, { type, payload }) {
             return state;
     }
 }
+

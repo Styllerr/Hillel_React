@@ -1,6 +1,14 @@
-import React from 'react'
+import React from 'react';
+import { connect } from 'react-redux';
+import { onInputChange, cancelForm } from '../store/actions/contacts';
 
-function ContactsForm() {
+
+function ContactsForm({ cencelButtonName, onInputChange, name, surname, phone, cancelForm }) {
+
+    function onChange(e) {
+        const data = { name: e.target.name, value: e.target.value };
+        onInputChange(data);
+    }
     return (
         <form action='#' className="contact_form">
             <div className="input_wrapper">
@@ -9,8 +17,8 @@ function ContactsForm() {
                     type="text"
                     // className={isValid.name ? "" : "error"}
                     name="name"
-                    // value={contact.name}
-                    // onChange={this.onInputChange}
+                    value={name}
+                    onChange={onChange}
                     // onBlur={this.onInputChange}
                     autoComplete="off"
                 />
@@ -20,8 +28,8 @@ function ContactsForm() {
                         type="text"
                         // className={isValid.surname ? "" : "error"}
                         name="surname"
-                        // value={contact.surname}
-                        // onChange={this.onInputChange}
+                        value={surname}
+                        onChange={onChange}
                         // onBlur={this.onInputChange}
                         autoComplete="off"
                     />
@@ -30,21 +38,33 @@ function ContactsForm() {
                     type="tel"
                     // className={isValid.phone ? "" : "error"}
                     name="phone"
-                    // value={contact.phone}
-                    // onChange={this.onInputChange}
+                    value={phone}
+                    onChange={onChange}
                     // onBlur={this.onInputChange}
                     autoComplete="off"
                 /></label>
             </div>
             <div className="button_block">
-                <input type='submit' value='Save'/>
+                <input type='submit' value='Save' />
                 <button
-                // disabled={this.state.lockDel}
-                >Delete</button>
+                    onClick={cancelForm}
+                >{cencelButtonName}</button>
 
             </div>
         </form>
     )
 }
 
-export default ContactsForm
+function mapStateToProps({ name, surname, phone, }) {
+    return {
+        name,
+        surname,
+        phone,
+    }
+}
+const mapDispatchToProps = {
+    onInputChange,
+    cancelForm
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactsForm)
