@@ -1,16 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { onInputChange, cancelForm } from '../store/actions/contacts';
+import { onInputChange, cancelForm, add } from '../store/actions/contacts';
 
 
-function ContactsForm({ cencelButtonName, onInputChange, name, surname, phone, cancelForm }) {
+function ContactsForm({ cancelButtonName, onInputChange, name, surname, phone, cancelForm, add }) {
 
     function onChange(e) {
         const data = { name: e.target.name, value: e.target.value };
         onInputChange(data);
     }
+function onSubmit(e) {
+    e.preventDefault();
+    add(name, surname, phone);
+}
     return (
-        <form action='#' className="contact_form">
+        <form action='#'
+            className="contact_form"
+            onSubmit={onSubmit}>
             <div className="input_wrapper">
                 <label>Name<input
                     autoFocus
@@ -48,23 +54,24 @@ function ContactsForm({ cencelButtonName, onInputChange, name, surname, phone, c
                 <input type='submit' value='Save' />
                 <button
                     onClick={cancelForm}
-                >{cencelButtonName}</button>
+                >{cancelButtonName}</button>
 
             </div>
         </form>
     )
 }
 
-function mapStateToProps({ name, surname, phone, }) {
+function mapStateToProps(state) {
     return {
-        name,
-        surname,
-        phone,
+        name: state.contacts.name,
+        surname: state.contacts.surname,
+        phone: state.contacts.phone,
     }
 }
 const mapDispatchToProps = {
     onInputChange,
-    cancelForm
+    cancelForm,
+    add,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactsForm)

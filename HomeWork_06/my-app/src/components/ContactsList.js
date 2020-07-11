@@ -2,10 +2,10 @@ import React from 'react';
 import ContactsItem from './ContactsItem';
 import ContactsForm from './ContactsForm'
 import { connect } from 'react-redux';
-import { add, edit, del, onFormShow } from '../store/actions/contacts';
+import { edit, del, onFormShow } from '../store/actions/contacts';
 
 
-function ContactList({ contacts, add, onFormShow, isFormShow, cencelButtonName, onInputChange }) {
+function ContactList({ contacts, onFormShow, isFormShow, cancelButtonName, onInputChange }) {
     return (
         <div className='table_wrapper'>
             <table className="table_contacts">
@@ -29,7 +29,7 @@ function ContactList({ contacts, add, onFormShow, isFormShow, cencelButtonName, 
                 </button>) : null}
             </div>
             {isFormShow ? <ContactsForm 
-            cencelButtonName={cencelButtonName}
+            cancelButtonName={cancelButtonName}
             /> : null}
         </div>
     )
@@ -39,11 +39,10 @@ function mapStateToProps(state) {
     return {
         contacts: state.contacts.items,
         isFormShow: state.contacts.isFormShow,
-        cencelButtonName: state.contacts.cencelButtonName,
+        cancelButtonName: state.contacts.cancelButtonName,
     }
 }
 const mapDispatchToProps = {
-    add,
     edit,
     del,
     onFormShow,
