@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
 import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-  Link,
+    BrowserRouter as Router,
+    Route,
+    Switch,
+    Redirect,
+    Link,
 } from 'react-router-dom';
 import About from './components/About';
 import Homepage from './components/Homepage';
@@ -13,10 +13,10 @@ import ContactList from './components/ContactsList';
 
 
 function App() {
-  return (
-    <Router>
+    return (
+        <Router>
             <header>
-                My ContactsBook Application
+                <h2>My ContactsBook Application</h2>
                 <ul>
                     <li>
                         <Link to="/">Home</Link>{' '}
@@ -44,7 +44,7 @@ function App() {
                 </Route>
             </Switch>
         </Router>
-  );
+    );
 }
 
 export default App;

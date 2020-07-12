@@ -5,7 +5,6 @@ import { onInputChange, cancelForm, add, validate, validateForm } from '../store
 
 
 function ContactsForm({
-    cancelButtonName,
     onInputChange,
     name,
     surname,
@@ -64,11 +63,10 @@ function ContactsForm({
                 /></label>
             </div>
             <div className="button_block">
-                <input type='submit' value='Save' disabled={!isFormValid}/>
+                <input type='submit' value='Save' disabled={!isFormValid} />
                 <button
                     onClick={cancelForm}
-                >{cancelButtonName}</button>
-
+                >Cancel</button>
             </div>
         </form>
     )

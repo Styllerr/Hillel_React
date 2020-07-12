@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { del, onFormShow } from '../store/actions/contacts';
 
 
-function ContactList({ contacts, onFormShow, isFormShow, cancelButtonName, del }) {
+function ContactList({ contacts, onFormShow, isFormShow, del }) {
     return (
         <div className='table_wrapper'>
             <table className="table_contacts">
@@ -27,14 +27,13 @@ function ContactList({ contacts, onFormShow, isFormShow, cancelButtonName, del }
                     })}
                 </tbody>
             </table>
-            <div className='btnConteiner'>
+            <div className='btnConteiner' style={{marginTop:'20px'}}>
                 {!isFormShow ? (<button
                     onClick={() => onFormShow()}>Create new contact
                 </button>) : null}
+                {isFormShow ? <ContactsForm
+                /> : null}
             </div>
-            {isFormShow ? <ContactsForm
-                cancelButtonName={cancelButtonName}
-            /> : null}
         </div>
     )
 }
@@ -43,7 +42,6 @@ function mapStateToProps(state) {
     return {
         contacts: state.contacts.items,
         isFormShow: state.contacts.isFormShow,
-        cancelButtonName: state.contacts.cancelButtonName,
     }
 }
 const mapDispatchToProps = {
