@@ -1,14 +1,17 @@
-import React from 'react'
+import React from 'react';
 
-function ContactsItem({contact}) {
-    const {name, surname, phone} = {...contact};
+function ContactsItem({contact, onDelete}) {
+    const {id, name, surname, phone} = {...contact};
+
     return (
         <tr>
             <td>{name}</td>
             <td>{surname}</td>
             <td>{phone}</td>
             <td>
-                <button>Delete</button>
+                <button 
+                onClick={() => onDelete(id)}
+                >Delete</button>
             </td>
         </tr>
     )

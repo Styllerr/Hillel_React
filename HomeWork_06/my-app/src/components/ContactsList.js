@@ -2,10 +2,10 @@ import React from 'react';
 import ContactsItem from './ContactsItem';
 import ContactsForm from './ContactsForm'
 import { connect } from 'react-redux';
-import { edit, del, onFormShow } from '../store/actions/contacts';
+import { del, onFormShow } from '../store/actions/contacts';
 
 
-function ContactList({ contacts, onFormShow, isFormShow, cancelButtonName, onInputChange }) {
+function ContactList({ contacts, onFormShow, isFormShow, cancelButtonName, del }) {
     return (
         <div className='table_wrapper'>
             <table className="table_contacts">
@@ -19,7 +19,11 @@ function ContactList({ contacts, onFormShow, isFormShow, cancelButtonName, onInp
                 </thead>
                 <tbody>
                     {contacts.map((item) => {
-                        return <ContactsItem key={item.id} contact={item} />
+                        return <ContactsItem
+                            key={item.id}
+                            contact={item}
+                            onDelete={del}
+                        />
                     })}
                 </tbody>
             </table>
@@ -28,8 +32,8 @@ function ContactList({ contacts, onFormShow, isFormShow, cancelButtonName, onInp
                     onClick={() => onFormShow()}>Create new contact
                 </button>) : null}
             </div>
-            {isFormShow ? <ContactsForm 
-            cancelButtonName={cancelButtonName}
+            {isFormShow ? <ContactsForm
+                cancelButtonName={cancelButtonName}
             /> : null}
         </div>
     )
@@ -43,7 +47,6 @@ function mapStateToProps(state) {
     }
 }
 const mapDispatchToProps = {
-    edit,
     del,
     onFormShow,
 }
