@@ -5,9 +5,9 @@ import App from './App';
 
 import { Provider } from 'react-redux';
 import store from './store';
-import { fetchTodos } from './store/actions/contacts';
+import { fetchContacts } from './store/actions/contacts';
 
-store.dispatch(fetchTodos());
+store.dispatch(fetchContacts());
 
 ReactDOM.render(
   <React.StrictMode>

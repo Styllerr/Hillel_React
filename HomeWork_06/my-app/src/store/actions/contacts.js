@@ -66,7 +66,7 @@ export function del(id) {
     }
 }
 
-export function fetchTodos() {
+export function fetchContacts() {
     return function (dispatch) {
         api.get().then((resp) => dispatch(setContacts(resp.data)));
     };
