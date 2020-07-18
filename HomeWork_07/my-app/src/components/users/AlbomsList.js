@@ -1,11 +1,11 @@
 import React from 'react'
 
-function AlbomsItem() {
+function AlbomsList() {
     return (
         <div>
-            Alboms item
+            Albom List
         </div>
     )
 }
 
-export default AlbomsItem
+export default AlbomsList

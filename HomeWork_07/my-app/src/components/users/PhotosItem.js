@@ -1,11 +1,11 @@
 import React from 'react'
 
-function AlbomsItem() {
+function PhotosItem() {
     return (
         <div>
-            Alboms item
+            
         </div>
     )
 }
 
-export default AlbomsItem
+export default PhotosItem
