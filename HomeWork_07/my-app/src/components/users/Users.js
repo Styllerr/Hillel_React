@@ -11,7 +11,7 @@ function Users({getUsers}) {
     useEffect(() => {
         getUsers();
         
-    }, [])
+    }, [getUsers])
 
     return (
         <Paper>

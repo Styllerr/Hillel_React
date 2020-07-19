@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Navigation from './components/common/Navigation';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import Users from './components/users/Users';
-import Alboms from './components/users/Alboms';
+import Albums from './components/users/Albums';
 
 function App() {
   return (
@@ -21,8 +21,8 @@ function App() {
               <Route path='/users'>
                 <Users />
               </Route>
-              <Route path='/alboms'>
-                <Alboms />
+              <Route path='/albums'>
+                <Albums />
               </Route>
               <Route path='*'>
                 <Redirect to='/' />

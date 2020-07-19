@@ -6,26 +6,23 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import UsersItem from './UsersItem';
 import { connect } from 'react-redux';
+import AlbumsItem from './AlbumsItem'
 
-function UsersList({ users }) {
+function AlbumsList({albums}) {
     return (
         <TableContainer component={Paper}>
             <Table size="small" aria-label="a dense table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>Name</TableCell>
+                        <TableCell>Album title</TableCell>
                         <TableCell align="right">Username</TableCell>
-                        <TableCell align="right">E-mail</TableCell>
-                        <TableCell align="right">Phone</TableCell>
-                        <TableCell align="right">Action</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {users.map((item) => (
-                        <UsersItem
-                            users={item}
+                    {albums.map((item) => (
+                        <AlbumsItem
+                            albums={item}
                             key={item.id} />
                     ))}
                 </TableBody>
@@ -33,7 +30,7 @@ function UsersList({ users }) {
         </TableContainer>
     )
 }
-const mapStateToProps = ({ users: { items } }) => ({
-    users: items,
+const mapStateToProps = ({users: {albums}}) => ({
+    albums,
 })
-export default connect(mapStateToProps)(UsersList)
+export default connect(mapStateToProps)(AlbumsList)

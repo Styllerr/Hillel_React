@@ -1,10 +1,11 @@
-import React from 'react'
+import React from 'react';
+import GridListTile from '@material-ui/core/GridListTile';
 
-function PhotosItem() {
+function PhotosItem({tile}) {
     return (
-        <div>
-            
-        </div>
+        <GridListTile cols={tile.cols || 1}>
+            <img src={tile.url} alt={tile.title} />
+        </GridListTile>
     )
 }
 
