@@ -10,6 +10,7 @@ import UsersItem from './UsersItem';
 import { connect } from 'react-redux';
 
 function UsersList({ users }) {
+    
     return (
         <TableContainer component={Paper}>
             <Table size="small" aria-label="a dense table">

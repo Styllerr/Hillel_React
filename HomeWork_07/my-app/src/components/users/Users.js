@@ -1,17 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import { Switch, Route } from 'react-router-dom';
 import UsersList from './UsersList';
 import UsersForm from './UsersForm';
-import {getUsers} from '../../store/actions/users';
-import { connect } from 'react-redux';
 
 
-function Users({getUsers}) {
-    useEffect(() => {
-        getUsers();
-        
-    }, [getUsers])
+function Users() {
 
     return (
         <Paper>
@@ -19,7 +13,10 @@ function Users({getUsers}) {
                 <Route path='/users' exact >
                     <UsersList />
                 </Route>
-                <Route path='/users/:id' >
+                <Route path='/users/:id'>
+                    <UsersForm />
+                </Route>
+                <Route path='/users/new'>
                     <UsersForm />
                 </Route>
             </Switch>
@@ -27,7 +24,5 @@ function Users({getUsers}) {
     )
 }
 
-const mapDispatchToProps = {
-    getUsers,
-}
-export default connect(null, mapDispatchToProps)(Users)
+
+export default Users

@@ -8,6 +8,7 @@ import GridList from '@material-ui/core/GridList';
 function Photos(props) {
     const [photos, setPhotos] = useState([])
     const albumID = props.match.params.id;
+    
 
     useEffect(() => {
         api.get('/albums/' + albumID + '/photos').then(
@@ -16,11 +17,14 @@ function Photos(props) {
     }, [albumID])
 
     return (
+        <>
+        <h2>Album {photos.title}</h2>
         <GridList cellHeight={160} cols={3}>
             {photos.map((tile) => (
                 <PhotosItem tile={tile} key={tile.id} />
             ))}
         </GridList>
+        </>
     )
 }
 

@@ -21,10 +21,21 @@ export function getAlbums() {
         )
     })
 }
+
+export const ACTION_CREATE_USER = 'ACTION/CREATE/USER';
+export function createUser(data) {
+    return ((dispatch) => {
+        api.post('/users/', data).then((resp) => dispatch({
+            type: ACTION_CREATE_USER,
+            payload: resp.data
+        })
+        )
+    })
+}
 export const ACTION_DEL_USER = 'ACTION/DEL/USER';
 export function delUser(id) {
     return ((dispatch) => {
-        api.delete('/users/' + id).then((resp) => dispatch({
+        api.delete('/users/' + id).then(() => dispatch({
             type: ACTION_DEL_USER,
             payload: id
         })
@@ -32,3 +43,10 @@ export function delUser(id) {
     })
 }
 
+export const ACTION_INPUT_CHANGE = 'ACTION/INPUT/CHANGE';
+export function inputChange(name, value) {
+    return {
+        type: ACTION_INPUT_CHANGE,
+        payload: {[name]: value}
+    }
+}

@@ -14,6 +14,9 @@ function Navigation() {
                 <Button component={NavLink} to='/albums' color="inherit">
                     Albums
                 </Button>
+                <Button component={NavLink} to='/users/new' color="inherit">
+                    New user
+                </Button>
             </Toolbar>
         </AppBar>
     )
