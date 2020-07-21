@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 function UsersItem({ users, delUser }) {
-
     const history = useHistory();
 
     function onRowClick() {

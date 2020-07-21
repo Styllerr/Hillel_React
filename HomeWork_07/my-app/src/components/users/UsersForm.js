@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { connect } from 'react-redux';
-import {inputChange, createUser} from '../../store/actions/users'
+import { inputChange, createUser, editUser, blankUser } from '../../store/actions/users'
+import { withRouter, useHistory } from 'react-router-dom';
 
-function UsersForm({ id, name, username, email, phone, inputChange, createUser }) {
+
+function UsersForm({ id, name, username, email, phone, inputChange, createUser, editUser, blankUser, match }) {
+    const userEditedID = match.params.id;
+    const history = useHistory();
+
+    useEffect(() => {
+        userEditedID === "new" ? blankUser() :
+        editUser(parseInt(userEditedID));
+        return () => {
+            blankUser()
+        }
+    }, [])
 
     function onFormSubmit(e) {
         e.preventDefault();
@@ -17,9 +29,14 @@ function UsersForm({ id, name, username, email, phone, inputChange, createUser }
     function onInputChange(e) {
         inputChange(e.target.name, e.target.value)
     }
+    function onCancel() {
+        blankUser();
+        history.goBack();
+    }
     return (
         <Paper>
-            <h2>Enter new user</h2>
+            {!id ? <h2>Enter new user</h2> :
+                <h2>Edit user id:{id}</h2>}
             <form
                 actions='#'
                 noValidate
@@ -76,6 +93,7 @@ function UsersForm({ id, name, username, email, phone, inputChange, createUser }
                     color="primary"
                     size="medium"
                     startIcon={<CancelIcon />}
+                    onClick={onCancel}
                 >Cancel
                 </Button>
             </form>
@@ -87,12 +105,15 @@ function mapStateToProps({ users }) {
         {
             id: users.id,
             name: users.name,
-            surname: users.surname,
+            username: users.username,
+            email: users.email,
             phone: users.phone
         })
 }
 const mapDispatchToProps = {
     inputChange,
-    createUser
+    createUser,
+    editUser,
+    blankUser,
 }
-export default connect(mapStateToProps, mapDispatchToProps)(UsersForm)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UsersForm))

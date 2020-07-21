@@ -21,6 +21,20 @@ export function getAlbums() {
         )
     })
 }
+export const ACTION_SET_USER_FOR_EDIT = 'ACTION/SET/USER/FOR/EDIT';
+export function editUser(id) {
+    return {
+        type: ACTION_SET_USER_FOR_EDIT,
+        payload: id,
+    }
+}
+export const ACTION_SET_BLANK = 'ACTION/SET/BLANK';
+export function blankUser() {
+    return {
+        type: ACTION_SET_BLANK,
+    }
+}
+
 
 export const ACTION_CREATE_USER = 'ACTION/CREATE/USER';
 export function createUser(data) {
@@ -47,6 +61,6 @@ export const ACTION_INPUT_CHANGE = 'ACTION/INPUT/CHANGE';
 export function inputChange(name, value) {
     return {
         type: ACTION_INPUT_CHANGE,
-        payload: {[name]: value}
+        payload: { [name]: value }
     }
 }
