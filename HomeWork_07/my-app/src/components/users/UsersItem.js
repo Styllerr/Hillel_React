@@ -13,6 +13,10 @@ function UsersItem({ users, delUser }) {
     function onRowClick() {
         history.push('/users/' + users.id);
     }
+    function onDelClick(e) {
+        e.stopPropagation();
+        delUser(users.id);
+    }
     return (
         <TableRow onClick={onRowClick}>
             <TableCell component="th" scope="row">
@@ -25,7 +29,7 @@ function UsersItem({ users, delUser }) {
                 <Button
                     variant="contained"
                     color="secondary"
-                    onClick={() => delUser(users.id)}
+                    onClick={onDelClick}
                 >X
                 </Button>
             </TableCell>
