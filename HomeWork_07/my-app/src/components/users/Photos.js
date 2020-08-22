@@ -18,7 +18,7 @@ function Photos(props) {
 
     return (
         <>
-        <h2>Album {photos.title}</h2>
+        <h2>Album ID: {albumID}</h2>
         <GridList cellHeight={160} cols={3}>
             {photos.map((tile) => (
                 <PhotosItem tile={tile} key={tile.id} />
